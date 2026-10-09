@@ -3,10 +3,18 @@ using AcademicTracker.ViewModels;
 
 namespace AcademicTracker.Views;
 
-public partial class NewPage1 : ContentPage
+public partial class HomePage : ContentPage
 {
-	public NewPage1()
+	private readonly HomeViewModel _viewModel;
+	public HomePage(HomeViewModel viewModel)
 	{
-		InitializeComponent();
-	}
+        InitializeComponent();
+        BindingContext = _viewModel = viewModel;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+         _viewModel.LoadTermCommand.Execute(null);
+    }
 }
