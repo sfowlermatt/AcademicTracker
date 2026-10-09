@@ -25,6 +25,40 @@ namespace AcademicTracker.ViewModels
         private bool isBusy;
 
         [RelayCommand]
-        private async
+        private async Task LoadTermAsync()
+        {
+            if (IsBusy)
+                return;
+            try
+            {
+                IsBusy = true;
+                Terms.Clear();
+                var terms = await _termService.GetTermAsync();
+                foreach (var term in terms)
+                {
+                    Terms.Add(term);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (e.g., log them, show a message to the user, etc.)
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        [RelayCommand]
+        private async Task OpenTermAsync(Term term)
+        {
+            if (term == null) return;
+            await Shell.Current.GoToAsync($"{nameof(SelectedTerm)}?termId={term.Id}");
+        }
+
+        [RelayCommand]
+        private void AddTerm()
+        {
+            Shell.Current.GoToAsync(nameof(AddTerm));
+        }
     }
 }
