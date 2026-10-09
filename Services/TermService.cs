@@ -9,10 +9,10 @@ namespace AcademicTracker.Services
     {
         private readonly List<Term> _terms = new()
         {
-            new Term { Title = "Fall 2023", StartDate = new DateTime(2023, 9, 1), EndDate = new DateTime(2023, 12, 15) },
-            new Term { Title = "Spring 2024", StartDate = new DateTime(2024, 1, 10), EndDate = new DateTime(2024, 5, 5) },
-            new Term { Title = "Summer 2024", StartDate = new DateTime(2024, 6, 1), EndDate = new DateTime(2024, 8, 15) },
-            new Term { Title = "Fall 2024", StartDate = new DateTime(2024, 9, 1), EndDate = new DateTime(2024, 12, 15) }
+            new Term { Id = 1, Title = "Fall 2023", StartDate = new DateTime(2023, 9, 1), EndDate = new DateTime(2023, 12, 15) },
+            new Term { Id = 2, Title = "Spring 2024", StartDate = new DateTime(2024, 1, 10), EndDate = new DateTime(2024, 5, 5) },
+            new Term { Id = 3, Title = "Summer 2024", StartDate = new DateTime(2024, 6, 1), EndDate = new DateTime(2024, 8, 15) },
+            new Term { Id = 4, Title = "Fall 2024", StartDate = new DateTime(2024, 9, 1), EndDate = new DateTime(2024, 12, 15) }
         };
 
         public Task<List<Term>> GetTermAsync()

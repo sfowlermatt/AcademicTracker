@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using AcademicTracker.Services;
 using AcademicTracker.Models;
+using AcademicTracker.Views;
 //using AcademicTracker.Views;
 
 namespace AcademicTracker.ViewModels
@@ -52,7 +53,7 @@ namespace AcademicTracker.ViewModels
         private async Task OpenTermAsync(Term term)
         {
             if (term == null) return;
-            await Shell.Current.GoToAsync($"{nameof(SelectedTerm)}?termId={term.Id}");
+            await Shell.Current.GoToAsync($"{nameof(SelectedTermPage)}?termId={term.Id}");
         }
 
         [RelayCommand]
