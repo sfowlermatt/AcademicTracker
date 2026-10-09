@@ -4,11 +4,11 @@ using System.Text;
 
 namespace AcademicTracker.Models
 {
-    internal class Term
+    public class Term
     {
         public string Title { get; set; }
-        public DatePicker StartDate { get; set; }
-        public DatePicker EndDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
     }
 }

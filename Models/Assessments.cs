@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AcademicTracker.Models
 {
-    internal class Assessments
+    public class Assessments
     {
         public string Name { get; set; }
         public DatePicker StartDate { get; set; }
