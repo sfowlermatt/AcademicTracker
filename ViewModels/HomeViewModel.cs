@@ -14,10 +14,12 @@ namespace AcademicTracker.ViewModels
     public partial class HomeViewModel : ObservableObject
     {
         private readonly ITerms _termService;
+        
 
         public HomeViewModel(ITerms termService)
         {
             _termService = termService;
+            
         }
 
         public ObservableCollection<Term> Terms { get; } = new();
@@ -43,6 +45,7 @@ namespace AcademicTracker.ViewModels
             catch (Exception ex)
             {
                 // Handle exceptions (e.g., log them, show a message to the user, etc.)
+                System.Diagnostics.Debug.WriteLine($"Error loading terms: {ex.Message}");
             }
             finally
             {

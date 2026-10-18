@@ -20,5 +20,12 @@ namespace AcademicTracker.Services
             // Simulate an asynchronous operation
             return Task.FromResult(_terms);
         }
+
+        public Task<Term?> GetTermByIdAsync(int id)
+        {
+            // Simulate an asynchronous operation
+            var term = _terms.FirstOrDefault(t => t.Id == id);
+            return Task.FromResult(term);
+        }
     }
 }

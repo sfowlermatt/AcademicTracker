@@ -8,5 +8,8 @@ namespace AcademicTracker.Services
     public interface ITerms
     {
         Task<List<Term>> GetTermAsync();
+        Task<Term?> GetTermByIdAsync(int id);
     }
+
+   
 }

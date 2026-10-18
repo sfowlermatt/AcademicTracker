@@ -8,6 +8,7 @@ namespace AcademicTracker
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(SelectedTermPage), typeof(SelectedTermPage));
+            Routing.RegisterRoute(nameof(SelectedCoursePage), typeof(SelectedCoursePage));
         }
     }
 }

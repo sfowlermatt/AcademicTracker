@@ -1,0 +1,83 @@
+using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using AcademicTracker.Models;
+using AcademicTracker.Services;
+using AcademicTracker.Views;
+
+
+namespace AcademicTracker.ViewModels;
+
+[QueryProperty(nameof(TermId), "termId")]
+public partial class SelectedTermViewModel : ObservableObject
+{
+	private readonly ITerms _termService;
+	private readonly ICourses _courseService;
+
+	public SelectedTermViewModel(ITerms termService, ICourses courseService)
+	{
+		_termService = termService;
+		_courseService = courseService;
+	}
+
+	public ObservableCollection<Courses> Courses { get; } = new();
+
+    [ObservableProperty]
+	private string? termId;
+
+	[ObservableProperty]
+    private Term? term;
+
+	[ObservableProperty]
+	private string dateRange = string.Empty;
+
+	[ObservableProperty]
+    private bool isBusy;
+
+	partial void OnTermIdChanged(string? value)
+	{
+		LoadTermDetailsCommand.Execute(null);
+    }
+
+	[RelayCommand]
+    private async Task LoadTermDetailsAsync()
+    {
+        if (string.IsNullOrEmpty(TermId))
+            return;
+
+        isBusy = true;
+
+        try
+        {
+            var term = await _termService.GetTermByIdAsync(TermId);
+            Term = term;
+        }
+        catch (Exception ex)
+        {
+            // Handle exception
+        }
+        finally
+        {
+            isBusy = false;
+        }
+    }
+
+    [RelayCommand]
+    private async Task OpenCourseAsync(Courses course)
+    {
+        if (course == null) return;
+        await Shell.Current.GoToAsync($"{nameof(SelectedCoursePage)}?courseId={course.Id}");
+    }
+
+    [RelayCommand]
+    private async Task GoBackAsync()
+    {
+        await Shell.Current.GoToAsync("..");
+    }
+
+    [RelayCommand]
+    private void EditTerm()
+    {
+        System.Diagnostics.Debug.WriteLine($"Edit term with ID: ");
+    }
+}
