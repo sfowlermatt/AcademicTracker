@@ -42,19 +42,28 @@ public partial class SelectedTermViewModel : ObservableObject
 	[RelayCommand]
     private async Task LoadTermDetailsAsync()
     {
-        if (string.IsNullOrEmpty(TermId))
+        if (isBusy || !int.TryParse(TermId, out var id))
             return;
-
-        isBusy = true;
 
         try
         {
-            var term = await _termService.GetTermByIdAsync(TermId);
-            Term = term;
+            isBusy = true;
+            var loadedTerm = await _termService.GetTermByIdAsync(id);
+            if (loadedTerm is null)
+                return;
+            Term = loadedTerm;
+            DateRange = $"{loadedTerm.StartDate:MM/dd/yyyy} - {loadedTerm.EndDate:MM/dd/yyyy}";
+
+            var courses = await _courseService.GetCoursesByTermIdAsync(id);
+            Courses.Clear();
+            foreach (var course in courses)
+            {
+                Courses.Add(course);
+            }
         }
         catch (Exception ex)
         {
-            // Handle exception
+            System.Diagnostics.Debug.WriteLine($"Error loading term details: {ex.Message}");
         }
         finally
         {

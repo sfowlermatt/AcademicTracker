@@ -25,7 +25,7 @@ namespace AcademicTracker.Services
 
         public Task<List<Courses>> GetCoursesByTermIdAsync(int termId)
         {
-            var coursesByTerm = _courses.FindAll(c => c.TermId == termId);
+            var coursesByTerm = _courses.FindAll(c => c.TermId == termId).ToList();
             return Task.FromResult(coursesByTerm);
         }
     }

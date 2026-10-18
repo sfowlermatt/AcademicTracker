@@ -26,6 +26,8 @@ namespace AcademicTracker
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<SelectedTermPage>();
             builder.Services.AddSingleton<ICourses, CourseService>();
+            builder.Services.AddTransient<SelectedTermViewModel>();
+            //builder.Services.AddTransient<AddCoursePage>();
 
             return builder.Build();
         }

@@ -1,25 +1,28 @@
+using AcademicTracker.Models;
+using AcademicTracker.ViewModels;
+
 namespace AcademicTracker.Views;
 
-[QueryProperty(nameof(TermId), "termId")]
 public partial class SelectedTermPage : ContentPage
 {
-    private string _termId;
+    private readonly SelectedTermViewModel _viewModel;
 
-    public string TermId
-    {
-        get => _termId;
-        set
-        {
-            _termId = value;
-            TermIdLabel.Text = $"Term ID: {value}";
-        }
-    }
-
-    public SelectedTermPage()
+    public SelectedTermPage(SelectedTermViewModel viewModel)
     {
         InitializeComponent();
+        BindingContext = _viewModel = viewModel;
     }
 
-    private async void OnBackClicked(object sender, EventArgs e)
-        => await Shell.Current.GoToAsync("..");
+    private async void OnCourseTapped(object sender, TappedEventArgs e)
+    {
+        if (sender is not Element { BindingContext: Courses course })
+            return;
+
+        await _viewModel.OpenCourseCommand.ExecuteAsync(course);
+    }
+
+    private async void onBackButtonClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("..");
+    }
 }
