@@ -4,11 +4,21 @@ using System.Text;
 
 namespace AcademicTracker.Models
 {
+
+    public enum AssessmentType
+    {
+        Objective,
+        Performance
+    }
+
     public class Assessments
     {
-        public string Name { get; set; }
-        public DatePicker StartDate { get; set; }
-        public DatePicker EndDate { get; set; }
+        public int Id { get; set; }
+        public int CourseId { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public AssessmentType Type { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
     }
 }

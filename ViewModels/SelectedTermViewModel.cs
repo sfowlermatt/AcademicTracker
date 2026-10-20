@@ -20,7 +20,7 @@ public partial class SelectedTermViewModel : ObservableObject
 		_courseService = courseService;
 	}
 
-	public ObservableCollection<Courses> Courses { get; } = new();
+	public ObservableCollection<Course> Courses { get; } = new();
 
     [ObservableProperty]
 	private string? termId;
@@ -42,12 +42,12 @@ public partial class SelectedTermViewModel : ObservableObject
 	[RelayCommand]
     private async Task LoadTermDetailsAsync()
     {
-        if (isBusy || !int.TryParse(TermId, out var id))
+        if (IsBusy || !int.TryParse(TermId, out var id))
             return;
 
         try
         {
-            isBusy = true;
+            IsBusy = true;
             var loadedTerm = await _termService.GetTermByIdAsync(id);
             if (loadedTerm is null)
                 return;
@@ -67,12 +67,12 @@ public partial class SelectedTermViewModel : ObservableObject
         }
         finally
         {
-            isBusy = false;
+            IsBusy = false;
         }
     }
 
     [RelayCommand]
-    private async Task OpenCourseAsync(Courses course)
+    private async Task OpenCourseAsync(Course course)
     {
         if (course == null) return;
         await Shell.Current.GoToAsync($"{nameof(SelectedCoursePage)}?courseId={course.Id}");
@@ -87,6 +87,6 @@ public partial class SelectedTermViewModel : ObservableObject
     [RelayCommand]
     private void EditTerm()
     {
-        System.Diagnostics.Debug.WriteLine($"Edit term with ID: ");
+        System.Diagnostics.Debug.WriteLine($"Edit term with ID: {Term?.Id}");
     }
 }

@@ -1,13 +1,93 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AcademicTracker.ViewModels"
              x:Class="AcademicTracker.Views.SelectedCoursePage"
-             Shell.NavBarIsVisible="False"
-             Title="SelectedCoursePage">
-    <VerticalStackLayout Padding="20" Spacing="12">
-        <Label 
-            Text="Selected Course (placeholder)" FontSize="22"/>
-        <Label x:Name="TermIdLabel" />
-        <Button Text="Back" Clicked="OnBackClicked" />
-    </VerticalStackLayout>
+             x:DataType="vm:SelectedCourseViewModel"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,10" Spacing="16">
+
+            <Button Text="Back"
+                    HorizontalOptions="Start"
+                    Command="{Binding GoBackCommand}" />
+
+            <!-- Main details card -->
+            <Border BackgroundColor="#EAEAEA" Stroke="#757575" StrokeThickness="2" Padding="20,16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="14">
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="{Binding TermTitle}"
+                               FontSize="22"
+                               TextColor="Black"
+                               VerticalOptions="Center" />
+                        <Button Grid.Column="1"
+                                Text="Edit"
+                                HeightRequest="34"
+                                Padding="16,0"
+                                CornerRadius="17"
+                                BackgroundColor="Transparent"
+                                TextColor="Black"
+                                BorderColor="#757575"
+                                BorderWidth="2"
+                                Command="{Binding EditCourseCommand}" />
+                    </Grid>
+
+                    <Label Text="{Binding SelectedCourse.Name}"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="Black" />
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                        <Label Grid.Column="0"
+                               Text="{Binding SelectedCourse.StartDate, StringFormat='Start: {0:MMM d, yyyy}'}"
+                               TextColor="Black" />
+                        <Label Grid.Column="1"
+                               Text="{Binding SelectedCourse.EndDate, StringFormat='End: {0:MMM d, yyyy}'}"
+                               TextColor="Black" />
+                    </Grid>
+
+                    <Label Text="{Binding SelectedCourse.Status, StringFormat='Status: {0}'}"
+                           TextColor="Black" />
+
+                    <Label Text="Course Notes" FontAttributes="Bold" TextColor="Black" />
+                    <Label Text="{Binding SelectedCourse.Notes}"
+                           TextColor="Black"
+                           MinimumHeightRequest="120" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Assessments card (placeholder until the assessment service exists) -->
+            <Border BackgroundColor="#EAEAEA" Stroke="#757575" StrokeThickness="2" Padding="20,16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Assessments" FontAttributes="Bold" TextColor="Black" />
+                    <Label Text="Objective" TextColor="Black" />
+                    <Label Text="Performance" TextColor="Black" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Instructor card -->
+            <Border BackgroundColor="#EAEAEA" Stroke="#757575" StrokeThickness="2" Padding="20,16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="{Binding SelectedCourse.InstructorName, StringFormat='Instructor Name: {0}'}" TextColor="Black" />
+                    <Label Text="{Binding SelectedCourse.InstructorPhone, StringFormat='Instructor Number: {0}'}" TextColor="Black" />
+                    <Label Text="{Binding SelectedCourse.InstructorEmail, StringFormat='Instructor Email: {0}'}" TextColor="Black" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

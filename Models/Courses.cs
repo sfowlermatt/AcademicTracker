@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AcademicTracker.Models
 {
-    public class Courses
+    public class Course
     {
         public int TermId { get; set; }
         public int Id { get; set; }
@@ -13,16 +13,19 @@ namespace AcademicTracker.Models
         public DateTime EndDate { get; set; }
         public string Status { get; set; }
         public string Notes { get; set; }
+        public string InstructorName { get; set; } = string.Empty;
+        public string InstructorPhone { get; set; } = string.Empty;
+        public string InstructorEmail { get; set; } = string.Empty;
 
 
-    //public Courses(string name, DateTime startDate, DateTime endDate, string status, string notes)
+        //public Courses(string name, DateTime startDate, DateTime endDate, string status, string notes)
         //{
-      //Name = name;
+        //Name = name;
         //StartDate = startDate;
-          //EndDate = endDate;
-            //Status = status;
-            //Notes = notes;
-            //TermId = new Term();
+        //EndDate = endDate;
+        //Status = status;
+        //Notes = notes;
+        //TermId = new Term();
         //}
     }
 }

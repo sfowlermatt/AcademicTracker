@@ -1,12 +1,12 @@
+using AcademicTracker.ViewModels;
+
 namespace AcademicTracker.Views;
 
 public partial class SelectedCoursePage : ContentPage
 {
-	public SelectedCoursePage()
+	public SelectedCoursePage(SelectedCourseViewModel viewModel)
 	{
 		InitializeComponent();
+		BindingContext = viewModel;
 	}
-
-	private async void OnBackClicked(object sender, EventArgs e)
-        => await Shell.Current.GoToAsync("..");
 }

@@ -7,7 +7,9 @@ namespace AcademicTracker.Services
 {
     public interface ICourses
     {
-        Task<List<Courses>> GetCourseAsync();
-        Task<List<Courses>> GetCoursesByTermIdAsync(int termId);
+        Task<List<Course>> GetCourseAsync();
+        Task<List<Course>> GetCoursesByTermIdAsync(int termId);
+
+        Task<Course?> GetCourseByIdAsync(int id);
     }
 }

@@ -15,7 +15,7 @@ public partial class SelectedTermPage : ContentPage
 
     private async void OnCourseTapped(object sender, TappedEventArgs e)
     {
-        if (sender is not Element { BindingContext: Courses course })
+        if (sender is not Element { BindingContext: Course course })
             return;
 
         await _viewModel.OpenCourseCommand.ExecuteAsync(course);
