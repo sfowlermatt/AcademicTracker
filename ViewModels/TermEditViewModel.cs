@@ -23,6 +23,9 @@ namespace AcademicTracker.ViewModels
         private string? termId;
 
         [ObservableProperty]
+        private string pageTitle = "Add Term";
+
+        [ObservableProperty]
         private string title = string.Empty;
 
         [ObservableProperty]
@@ -36,22 +39,24 @@ namespace AcademicTracker.ViewModels
 
         partial void OnTermIdChanged(string? value)
         {
-            if (int.TryParse(value, out int id))
-            {
-                LoadTerm(id);
-            }
+            LoadTermCommand.Execute(null);
         }
 
         [RelayCommand]
-        private async Task LoadTerm(int id)
+        private async Task LoadTermAsync()
         {
-            _existingTerm = await _termService.GetTermByIdAsync(id);
-            if (_existingTerm != null)
-            {
-                title = _existingTerm.Title;
-                startDate = _existingTerm.StartDate;
-                endDate = _existingTerm.EndDate;
-            }
+            if (!int.TryParse(TermId, out var id))
+                return;
+
+            var term = await _termService.GetTermByIdAsync(id);
+            if (term is null)
+                return;
+
+            _existingTerm = term;
+            PageTitle = "Edit Term";
+            Title = term.Title;
+            StartDate = term.StartDate;
+            EndDate = term.EndDate;
         }
 
         [RelayCommand]
@@ -71,9 +76,9 @@ namespace AcademicTracker.ViewModels
                 return;
             }
             var termToSave = _existingTerm ?? new Term();
-            termToSave.Title = title.Trim();
-            termToSave.StartDate = startDate;
-            termToSave.EndDate = endDate;
+            termToSave.Title = Title.Trim();
+            termToSave.StartDate = StartDate;
+            termToSave.EndDate = EndDate;
             await _termService.SaveTermAsync(termToSave);
             await Shell.Current.GoToAsync("..");
         }
