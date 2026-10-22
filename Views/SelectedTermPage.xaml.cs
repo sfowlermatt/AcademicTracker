@@ -25,4 +25,11 @@ public partial class SelectedTermPage : ContentPage
     {
         await Shell.Current.GoToAsync("..");
     }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (_viewModel.Courses.Count == 0)
+            _viewModel.LoadTermDetailsCommand.Execute(null);
+    }
 }

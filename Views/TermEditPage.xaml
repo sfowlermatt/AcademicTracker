@@ -18,17 +18,17 @@
 
                 <VerticalStackLayout Spacing="12">
                     <Label Text="Term Title" TextColor="Black" />
-                    <Entry Text="{Binding TermTitle}"
+                    <Entry Text="{Binding Title}"
                            Placeholder="e.g. Fall 2026"
                            TextColor="Black" />
 
                     <Label Text="Start Date" TextColor="Black" />
-                    <DatePicker Date="{Binding StartDate}"
+                    <DatePicker Date="{Binding startDate}"
                                 Format="MMM d, yyyy"
                                 TextColor="Black" />
 
                     <Label Text="End Date" TextColor="Black" />
-                    <DatePicker Date="{Binding EndDate}"
+                    <DatePicker Date="{Binding endDate}"
                                 Format="MMM d, yyyy"
                                 TextColor="Black" />
 
@@ -38,7 +38,7 @@
 
             <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
                 <Button Grid.Column="0" Text="Cancel" Command="{Binding CancelCommand}" />
-                <Button Grid.Column="1" Text="Save" Command="{Binding SaveCommand}" />
+                <Button Grid.Column="1" Text="Save" Command="{Binding SaveTermCommand}" />
             </Grid>
 
         </VerticalStackLayout>

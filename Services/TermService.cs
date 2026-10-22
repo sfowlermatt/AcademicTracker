@@ -30,19 +30,25 @@ namespace AcademicTracker.Services
 
         public Task SaveTermAsync (Term term)
         {
-            // Simulate saving the term (in a real application, you would save to a database)
-            var existingTerm = _terms.FirstOrDefault(t => t.Id == term.Id);
-            if (existingTerm != null)
+            if (term.Id == 0)
             {
-                // Update existing term
-                existingTerm.Title = term.Title;
-                existingTerm.StartDate = term.StartDate;
-                existingTerm.EndDate = term.EndDate;
+                // New term: give it the next available ID
+                term.Id = _terms.Count == 0 ? 1 : _terms.Max(t => t.Id) + 1;
+                _terms.Add(term);
             }
             else
             {
-                // Add new term
-                _terms.Add(term);
+                var existing = _terms.FirstOrDefault(t => t.Id == term.Id);
+                if (existing is null)
+                {
+                    _terms.Add(term);
+                }
+                else
+                {
+                    existing.Title = term.Title;
+                    existing.StartDate = term.StartDate;
+                    existing.EndDate = term.EndDate;
+                }
             }
             return Task.CompletedTask;
         }

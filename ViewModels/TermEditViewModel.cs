@@ -57,6 +57,9 @@ namespace AcademicTracker.ViewModels
         [RelayCommand]
         private async Task SaveTerm()
         {
+
+            ErrorMessage = string.Empty;
+
             if (string.IsNullOrWhiteSpace(title))
             {
                 ErrorMessage = "Title is required.";
@@ -68,10 +71,11 @@ namespace AcademicTracker.ViewModels
                 return;
             }
             var termToSave = _existingTerm ?? new Term();
-            termToSave.Title = title;
+            termToSave.Title = title.Trim();
             termToSave.StartDate = startDate;
             termToSave.EndDate = endDate;
             await _termService.SaveTermAsync(termToSave);
+            await Shell.Current.GoToAsync("..");
         }
 
         [RelayCommand]

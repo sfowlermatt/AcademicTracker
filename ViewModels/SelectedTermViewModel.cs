@@ -85,8 +85,9 @@ public partial class SelectedTermViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void EditTerm()
+    private async Task EditTerm()
     {
-        System.Diagnostics.Debug.WriteLine($"Edit term with ID: {Term?.Id}");
+        if (Term == null) return;
+        await Shell.Current.GoToAsync($"{nameof(TermEditPage)}?termId={Term.Id}");
     }
 }

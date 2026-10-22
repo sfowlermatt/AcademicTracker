@@ -60,9 +60,16 @@ namespace AcademicTracker.ViewModels
         }
 
         [RelayCommand]
-        private void AddTerm()
+        private async Task AddTerm()
         {
-            Shell.Current.GoToAsync(nameof(AddTerm));
+            await Shell.Current.GoToAsync(nameof(TermEditPage));
+        }
+
+        [RelayCommand]
+        private async Task EditTermAsync(Term term)
+        {
+            if (term == null) return;
+            await Shell.Current.GoToAsync($"{nameof(TermEditPage)}?termId={term.Id}");
         }
     }
 }

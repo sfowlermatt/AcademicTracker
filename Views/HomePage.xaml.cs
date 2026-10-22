@@ -16,8 +16,7 @@ public partial class HomePage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        if (_viewModel.Terms.Count == 0)
-            _viewModel.LoadTermCommand.Execute(null);
+        _viewModel.LoadTermCommand.Execute(null);
     }
 
     public async void OnTermTapped(object sender, TappedEventArgs e)
@@ -28,4 +27,12 @@ public partial class HomePage : ContentPage
         await Shell.Current.GoToAsync($"{nameof(SelectedTermPage)}?termId={term.Id}");
         
     }
+
+    public async void OnEditTermClicked(object sender, EventArgs e)
+    {
+        if (sender is not Element { BindingContext: Term term })
+            return;
+        await Shell.Current.GoToAsync($"{nameof(TermEditPage)}?termId={term.Id}");
+    }
+
 }

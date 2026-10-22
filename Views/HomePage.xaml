@@ -9,7 +9,10 @@
 
     <Grid RowDefinitions="Auto,*" Padding="20,10" RowSpacing="20">
 
-       <!-- <controls:AppHeader Grid.Row="0" /> -->
+       <Button Grid.Row="0"
+               Text="Add Term"
+               HorizontalOptions="End"
+               Command="{Binding AddTermCommand}" />
 
         <CollectionView Grid.Row="1"
                         ItemsSource="{Binding Terms}"
@@ -69,8 +72,7 @@
                                     BorderColor="#757575"
                                     BorderWidth="2"
                                     VerticalOptions="End"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=EditTermCommand}"
-                                    CommandParameter="{Binding .}" />
+                                    Clicked="OnEditTermClicked" />
                         </Grid>
                     </Border>
                 </DataTemplate>
