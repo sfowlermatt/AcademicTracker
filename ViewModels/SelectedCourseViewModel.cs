@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -13,11 +14,13 @@ namespace AcademicTracker.ViewModels
     {
         private readonly ICourses _courseService;
         private readonly ITerms _termService;
+        private readonly IAssessments _assessmentService;
 
-        public SelectedCourseViewModel(ICourses courseService, ITerms termService)
+        public SelectedCourseViewModel(ICourses courseService, ITerms termService, IAssessments assessmentService)
         {
             _courseService = courseService;
             _termService = termService;
+            _assessmentService = assessmentService;
         }
 
         [ObservableProperty]
@@ -28,6 +31,8 @@ namespace AcademicTracker.ViewModels
 
         [ObservableProperty]
         private string termTitle = string.Empty;
+
+        public ObservableCollection<Assessments> Assessments { get; } = new();
 
         [ObservableProperty]
         private bool isBusy;
@@ -51,6 +56,12 @@ namespace AcademicTracker.ViewModels
                 selectedCourse = course;
                 var term = await _termService.GetTermByIdAsync(course.TermId);
                 termTitle = term?.Title ?? string.Empty;
+                var assessments = await _assessmentService.GetAssessmentsByCourseIdAsync(course.Id);
+                Assessments.Clear();
+                foreach (var assessment in assessments)
+                {
+                    Assessments.Add(assessment);
+                }
             }
             catch (Exception ex)
             {

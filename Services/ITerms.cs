@@ -9,7 +9,10 @@ namespace AcademicTracker.Services
     {
         Task<List<Term>> GetTermAsync();
         Task<Term?> GetTermByIdAsync(int id);
+        Task SaveTermAsync(Term term);
     }
+
+
 
    
 }

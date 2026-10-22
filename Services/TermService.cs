@@ -27,5 +27,24 @@ namespace AcademicTracker.Services
             var term = _terms.FirstOrDefault(t => t.Id == id);
             return Task.FromResult(term);
         }
+
+        public Task SaveTermAsync (Term term)
+        {
+            // Simulate saving the term (in a real application, you would save to a database)
+            var existingTerm = _terms.FirstOrDefault(t => t.Id == term.Id);
+            if (existingTerm != null)
+            {
+                // Update existing term
+                existingTerm.Title = term.Title;
+                existingTerm.StartDate = term.StartDate;
+                existingTerm.EndDate = term.EndDate;
+            }
+            else
+            {
+                // Add new term
+                _terms.Add(term);
+            }
+            return Task.CompletedTask;
+        }
     }
 }

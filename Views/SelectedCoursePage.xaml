@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:AcademicTracker.ViewModels"
+             xmlns:models="clr-namespace:AcademicTracker.Models"
              x:Class="AcademicTracker.Views.SelectedCoursePage"
              x:DataType="vm:SelectedCourseViewModel"
              Shell.NavBarIsVisible="False">
@@ -62,16 +63,30 @@
                 </VerticalStackLayout>
             </Border>
 
-            <!-- Assessments card (placeholder until the assessment service exists) -->
+            <!-- Assessments card -->
             <Border BackgroundColor="#EAEAEA" Stroke="#757575" StrokeThickness="2" Padding="20,16">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="12" />
                 </Border.StrokeShape>
 
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Assessments" FontAttributes="Bold" TextColor="Black" />
-                    <Label Text="Objective" TextColor="Black" />
-                    <Label Text="Performance" TextColor="Black" />
+                <VerticalStackLayout Spacing="12">
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Assessments}" Spacing="10">
+
+                        <BindableLayout.EmptyView>
+                            <Label Text="No assessments yet" TextColor="Black" />
+                        </BindableLayout.EmptyView>
+
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:Assessments">
+                                <VerticalStackLayout Spacing="2">
+                                    <Label Text="{Binding Type}" FontAttributes="Bold" TextColor="Black" />
+                                    <Label Text="{Binding Name}" TextColor="Black" />
+                                    <Label Text="{Binding DueDate, StringFormat='Due: {0:MMM d, yyyy}'}" TextColor="Black" FontSize="12" />
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
             </Border>
 

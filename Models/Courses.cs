@@ -4,6 +4,12 @@ using System.Text;
 
 namespace AcademicTracker.Models
 {
+
+    public enum Status
+    {
+        Active,
+        Inactive
+    }
     public class Course
     {
         public int TermId { get; set; }
@@ -11,7 +17,7 @@ namespace AcademicTracker.Models
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public string Status { get; set; }
+        public Status Status { get; set; }
         public string Notes { get; set; }
         public string InstructorName { get; set; } = string.Empty;
         public string InstructorPhone { get; set; } = string.Empty;
