@@ -9,7 +9,7 @@ namespace AcademicTracker.Services
     {
         Task<List<Course>> GetCourseAsync();
         Task<List<Course>> GetCoursesByTermIdAsync(int termId);
-
         Task<Course?> GetCourseByIdAsync(int id);
+        Task DeleteCoursesByTermIdAsync(int termId);
     }
 }

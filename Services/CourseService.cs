@@ -38,5 +38,15 @@ namespace AcademicTracker.Services
             var course = _courses.FirstOrDefault(c => c.Id == id);
             return Task.FromResult(course);
         }
+
+        public Task DeleteCoursesByTermIdAsync(int termId)
+        {
+            var courses = _courses.FindAll(c => c.TermId == termId);
+            foreach (var course in courses)
+            {
+                _courses.Remove(course);
+            }
+            return Task.CompletedTask;
+        }
     }
 }

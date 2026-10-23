@@ -28,7 +28,7 @@ namespace AcademicTracker.Services
             return Task.FromResult(term);
         }
 
-        public Task SaveTermAsync (Term term)
+        public Task SaveTermAsync(Term term)
         {
             if (term.Id == 0)
             {
@@ -49,6 +49,16 @@ namespace AcademicTracker.Services
                     existing.StartDate = term.StartDate;
                     existing.EndDate = term.EndDate;
                 }
+            }
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteTermAsync(int id)
+        {
+            var term = _terms.FirstOrDefault(t => t.Id == id);
+            if (term is not null)
+            {
+                _terms.Remove(term);
             }
             return Task.CompletedTask;
         }

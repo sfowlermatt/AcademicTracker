@@ -23,5 +23,15 @@ namespace AcademicTracker.Services
             return Task.FromResult(assessments);
         }
 
+        public Task DeleteAssessmentByCourseIdAsync(int courseId)
+        {
+            var assessmentsToDelete = _assessments.Where(a => a.CourseId == courseId).ToList();
+            foreach (var assessment in assessmentsToDelete)
+            {
+                _assessments.Remove(assessment);
+            }
+            return Task.CompletedTask;
+        }
+
     }
 }
