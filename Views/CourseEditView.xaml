@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AcademicTracker.ViewModels"
+             x:Class="AcademicTracker.Views.CourseEditPage"
+             x:DataType="vm:CourseEditViewModel"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,10" Spacing="16">
+
+            <Label Text="{Binding PageTitle}" FontSize="24" />
+
+            <Border BackgroundColor="#EAEAEA" Stroke="#757575" StrokeThickness="2" Padding="20,16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Course Name" TextColor="Black" />
+                    <Entry Text="{Binding CourseName}" TextColor="Black" />
+
+                    <Label Text="Start Date" TextColor="Black" />
+                    <DatePicker Date="{Binding StartDate}" Format="MMM d, yyyy" TextColor="Black" />
+
+                    <Label Text="End Date" TextColor="Black" />
+                    <DatePicker Date="{Binding EndDate}" Format="MMM d, yyyy" TextColor="Black" />
+
+                    <Label Text="Status" TextColor="Black" />
+                    <Picker ItemsSource="{Binding StatusOptions}"
+                            SelectedItem="{Binding Status}"
+                            TextColor="Black" />
+
+                    <Label Text="Course Notes" TextColor="Black" />
+                    <Editor Text="{Binding Notes}"
+                            HeightRequest="120"
+                            TextColor="Black" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border BackgroundColor="#EAEAEA" Stroke="#757575" StrokeThickness="2" Padding="20,16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Instructor Name" TextColor="Black" />
+                    <Entry Text="{Binding InstructorName}" TextColor="Black" />
+
+                    <Label Text="Instructor Number" TextColor="Black" />
+                    <Entry Text="{Binding InstructorPhone}" Keyboard="Telephone" TextColor="Black" />
+
+                    <Label Text="Instructor Email" TextColor="Black" />
+                    <Entry Text="{Binding InstructorEmail}" Keyboard="Email" TextColor="Black" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="{Binding ErrorMessage}" TextColor="Red" />
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Button Grid.Column="0" Text="Cancel" Command="{Binding CancelCommand}" />
+                <Button Grid.Column="1" Text="Save" Command="{Binding SaveCourseCommand}" />
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

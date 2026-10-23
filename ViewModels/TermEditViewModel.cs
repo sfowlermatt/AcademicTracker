@@ -61,7 +61,7 @@ namespace AcademicTracker.ViewModels
                 return;
 
             _existingTerm = term;
-            isEditing = true;
+            IsEditing = true;
             PageTitle = "Edit Term";
             Title = term.Title;
             StartDate = term.StartDate;

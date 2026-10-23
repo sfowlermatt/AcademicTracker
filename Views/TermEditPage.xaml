@@ -40,6 +40,14 @@
                 <Button Grid.Column="0" Text="Cancel" Command="{Binding CancelCommand}" />
                 <Button Grid.Column="1" Text="Save" Command="{Binding SaveTermCommand}" />
             </Grid>
+            
+            <Button Text="Delete Term"
+                    BackgroundColor="Transparent"
+                    BorderColor="Red"
+                    BorderWidth="2"
+                    TextColor="Red"
+                    IsVisible="{Binding IsEditing}"
+                    Command="{Binding DeleteTermCommand}" />
 
         </VerticalStackLayout>
     </ScrollView>

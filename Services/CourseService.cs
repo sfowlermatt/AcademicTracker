@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using AcademicTracker.Models;
 using AcademicTracker.Services;
+using Android.Net.Wifi.Aware;
 
 
 namespace AcademicTracker.Services
@@ -37,6 +38,29 @@ namespace AcademicTracker.Services
         {
             var course = _courses.FirstOrDefault(c => c.Id == id);
             return Task.FromResult(course);
+        }
+
+        public Task SaveCourseAsync(Course course)
+        {
+            var existingCourse = _courses.FirstOrDefault(c => c.Id == course.Id);
+            if (existingCourse != null)
+            {
+                // Update existing course
+                existingCourse.Name = course.Name;
+                existingCourse.StartDate = course.StartDate;
+                existingCourse.EndDate = course.EndDate;
+                existingCourse.Status = course.Status;
+                existingCourse.Notes = course.Notes;
+                existingCourse.InstructorName = course.InstructorName;
+                existingCourse.InstructorPhone = course.InstructorPhone;
+                existingCourse.InstructorEmail = course.InstructorEmail;
+            }
+            else
+            {
+                // Add new course
+                _courses.Add(course);
+            }
+            return Task.CompletedTask;
         }
 
         public Task DeleteCoursesByTermIdAsync(int termId)
