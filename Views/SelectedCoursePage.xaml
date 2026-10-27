@@ -38,11 +38,12 @@
                                 BorderWidth="2"
                                 Command="{Binding EditCourseCommand}" />
                     </Grid>
-
+                    
                     <Label Text="{Binding SelectedCourse.Name}"
                            FontSize="20"
                            FontAttributes="Bold"
-                           TextColor="Black" />
+                           TextColor="RED" />
+                    
 
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
                         <Label Grid.Column="0"

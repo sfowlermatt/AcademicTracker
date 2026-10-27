@@ -20,7 +20,8 @@ public partial class SelectedTermViewModel : ObservableObject
 		_courseService = courseService;
 	}
 
-	public ObservableCollection<Course> Courses { get; } = new();
+    [ObservableProperty]
+    private ObservableCollection<Course> courses = new();
 
     [ObservableProperty]
 	private string? termId;
@@ -54,12 +55,8 @@ public partial class SelectedTermViewModel : ObservableObject
             Term = loadedTerm;
             DateRange = $"{loadedTerm.StartDate:MM/dd/yyyy} - {loadedTerm.EndDate:MM/dd/yyyy}";
 
-            var courses = await _courseService.GetCoursesByTermIdAsync(id);
-            Courses.Clear();
-            foreach (var course in courses)
-            {
-                Courses.Add(course);
-            }
+            var loadedcourses = await _courseService.GetCoursesByTermIdAsync(id);
+            Courses = new ObservableCollection<Course>(loadedcourses);
         }
         catch (Exception ex)
         {
@@ -90,4 +87,12 @@ public partial class SelectedTermViewModel : ObservableObject
         if (Term == null) return;
         await Shell.Current.GoToAsync($"{nameof(TermEditPage)}?termId={Term.Id}");
     }
+
+    [RelayCommand]
+    private async Task AddCourse()
+    {
+        if (Term == null) return;
+        await Shell.Current.GoToAsync($"{nameof(CourseEditView)}?termId={Term.Id}");
+    }
+
 }

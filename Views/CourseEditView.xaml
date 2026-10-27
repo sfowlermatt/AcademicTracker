@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:AcademicTracker.ViewModels"
-             x:Class="AcademicTracker.Views.CourseEditPage"
+             x:Class="AcademicTracker.Views.CourseEditView"
              x:DataType="vm:CourseEditViewModel"
              Shell.NavBarIsVisible="False">
 
@@ -18,7 +18,7 @@
 
                 <VerticalStackLayout Spacing="12">
                     <Label Text="Course Name" TextColor="Black" />
-                    <Entry Text="{Binding CourseName}" TextColor="Black" />
+                    <Entry Text="{Binding Name}" TextColor="Black" />
 
                     <Label Text="Start Date" TextColor="Black" />
                     <DatePicker Date="{Binding StartDate}" Format="MMM d, yyyy" TextColor="Black" />

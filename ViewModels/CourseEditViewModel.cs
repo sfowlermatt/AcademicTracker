@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static Android.Provider.ContactsContract.CommonDataKinds;
+
 
 namespace AcademicTracker.ViewModels
 {
@@ -19,6 +19,8 @@ namespace AcademicTracker.ViewModels
         {
             _courseService = courseService;
         }
+        public IReadOnlyList<Status> StatusOptions { get; } = Enum.GetValues<Status>();
+
         [ObservableProperty]
         private string? courseId;
         [ObservableProperty]
@@ -75,7 +77,7 @@ namespace AcademicTracker.ViewModels
         [RelayCommand]
         private async Task SaveCourse()
         {
-            errorMessage = string.Empty;
+            ErrorMessage = string.Empty;
 
             if (string.IsNullOrWhiteSpace(Name))
             {
@@ -89,7 +91,7 @@ namespace AcademicTracker.ViewModels
                 return;
             }
 
-            if (!string.IsNullOrWhiteSpace(InstructorEmail) && (!InstructorEmail.Contains("@") || !InstructorEmail.Contains(".com")))
+            if (!string.IsNullOrWhiteSpace(InstructorEmail) && (!InstructorEmail.Contains("@") || !InstructorEmail.Contains(".edu")))
 
             {
                 ErrorMessage = "Instructor email is not valid.";
@@ -111,7 +113,7 @@ namespace AcademicTracker.ViewModels
             }
 
             course.Name = Name.Trim();
-            course.StartDate = startDate;
+            course.StartDate = StartDate;
             course.EndDate = EndDate;
             course.Status = Status;
             course.Notes = Notes;

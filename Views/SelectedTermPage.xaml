@@ -11,7 +11,9 @@
 
         <HorizontalStackLayout Grid.Row="0" Spacing="12">
             <Button Text="Back" Command="{Binding GoBackCommand}" />
+            <Button Text="+ Add Course" Command="{Binding AddCourseCommand}" />
         </HorizontalStackLayout>
+
 
         <Button Grid.Row="1"
                 Text="Edit"

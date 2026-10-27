@@ -4,9 +4,16 @@ namespace AcademicTracker.Views;
 
 public partial class SelectedCoursePage : ContentPage
 {
-	public SelectedCoursePage(SelectedCourseViewModel viewModel)
+	private readonly SelectedCourseViewModel _viewModel;
+    public SelectedCoursePage(SelectedCourseViewModel viewModel)
 	{
 		InitializeComponent();
-		BindingContext = viewModel;
+		BindingContext = _viewModel = viewModel;
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _viewModel.LoadCourseCommand.Execute(null);
+    }
 }

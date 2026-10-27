@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using AcademicTracker.Models;
 using AcademicTracker.Services;
+using AcademicTracker.Views;
 
 namespace AcademicTracker.ViewModels
 {
@@ -53,9 +54,9 @@ namespace AcademicTracker.ViewModels
                 var course = await _courseService.GetCourseByIdAsync(id);
                 if (course is null)
                     return;
-                selectedCourse = course;
+                SelectedCourse = course;
                 var term = await _termService.GetTermByIdAsync(course.TermId);
-                termTitle = term?.Title ?? string.Empty;
+                TermTitle = term?.Title ?? string.Empty;
                 var assessments = await _assessmentService.GetAssessmentsByCourseIdAsync(course.Id);
                 Assessments.Clear();
                 foreach (var assessment in assessments)
@@ -81,9 +82,11 @@ namespace AcademicTracker.ViewModels
         }
 
         [RelayCommand]
-        private void EditCourse()
+        private async Task EditCourse()
         {
-            System.Diagnostics.Debug.WriteLine($"Edit course with ID: {selectedCourse?.Name}");
+            if (SelectedCourse is null)
+                return;
+            await Shell.Current.GoToAsync($"{nameof(CourseEditView)}?courseId={SelectedCourse.Id}");
         }
     }
 }

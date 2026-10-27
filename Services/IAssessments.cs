@@ -9,5 +9,7 @@ namespace AcademicTracker.Services
     {
         Task<List<Assessments>> GetAssessmentsByCourseIdAsync(int courseId);
         Task DeleteAssessmentByCourseIdAsync(int courseId);
+
+        Task SaveAssessmentAsync(Assessments assessment);
     }
 }

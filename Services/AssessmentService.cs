@@ -33,5 +33,24 @@ namespace AcademicTracker.Services
             return Task.CompletedTask;
         }
 
+        public Task SaveAssessmentAsync(Assessments assessment)
+        {
+            var existingAssessment = _assessments.FirstOrDefault(a => a.Id == assessment.Id);
+            if (existingAssessment != null)
+            {
+                // Update existing assessment
+                existingAssessment.Name = assessment.Name;
+                existingAssessment.Type = assessment.Type;
+                existingAssessment.StartDate = assessment.StartDate;
+                existingAssessment.EndDate = assessment.EndDate;
+            }
+            else
+            {
+                // Add new assessment
+                _assessments.Add(assessment);
+            }
+            return Task.CompletedTask;
+        }
+
     }
 }

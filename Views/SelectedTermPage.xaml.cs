@@ -29,7 +29,6 @@ public partial class SelectedTermPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        if (_viewModel.Courses.Count == 0)
-            _viewModel.LoadTermDetailsCommand.Execute(null);
+          _viewModel.LoadTermDetailsCommand.Execute(null);
     }
 }
