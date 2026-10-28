@@ -9,14 +9,19 @@ using AcademicTracker.Services;
 namespace AcademicTracker.ViewModels
 {
     [QueryProperty(nameof(AssessmentId), "assessmentId")]
+    [QueryProperty(nameof(CourseId), "courseId")]
     public partial class AssessmentEditViewModel : ObservableObject
     {
         private readonly IAssessments _assessmentService;
+        private Assessments? _existingAssessment;
 
         public AssessmentEditViewModel(IAssessments assessmentService)
         {
             _assessmentService = assessmentService;
+            
         }
+
+        public IReadOnlyList<AssessmentType> AssessmentTypeOptions { get; } = Enum.GetValues<AssessmentType>();>
 
         [ObservableProperty]
         private int assessmentId;
@@ -25,10 +30,13 @@ namespace AcademicTracker.ViewModels
         private int? courseId;
 
         [ObservableProperty]
+        private string pageTitle = "Add Assessment";
+
+        [ObservableProperty]
         private string name = string.Empty;
 
         [ObservableProperty]
-        private AssessmentType assessType;
+        private AssessmentType assessType = AssessmentType.Objective;
 
         [ObservableProperty]
         private DateTime startDate = DateTime.Today;
@@ -53,13 +61,15 @@ namespace AcademicTracker.ViewModels
             var assessment = await _assessmentService.GetAssessmentByIdAsync(assessmentId);
             if (assessment is null)
                 return;
-            
-                Name = assessment.Name;
-                AssessType = assessment.Type;
-                StartDate = assessment.StartDate;
-                EndDate = assessment.EndDate;
-                CourseId = assessment.CourseId;
-            
+
+            _existingAssessment = assessment;
+            PageTitle = "Edit Assessment";
+
+            Name = assessment.Name;
+            AssessType = assessment.Type;
+            StartDate = assessment.StartDate;
+            EndDate = assessment.EndDate;
+            CourseId = assessment.CourseId;
         }
 
         [RelayCommand]
