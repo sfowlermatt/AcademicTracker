@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AcademicTracker.ViewModels"
+             x:Class="AcademicTracker.Views.AssessmentEditView"
+             x:DataType="vm:AssessmentEditViewModel"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,10" Spacing="16">
+
+            <Label Text="{Binding PageTitle}" FontSize="24" />
+
+            <Border BackgroundColor="#EAEAEA" Stroke="#757575" StrokeThickness="2" Padding="20,16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Assessment Name" TextColor="Black" />
+                    <Entry Text="{Binding Name}" TextColor="Black" />
+
+                    <Label Text="Type" TextColor="Black" />
+                    <Picker ItemsSource="{Binding AssessmentTypeOptions}"
+                            SelectedItem="{Binding AssessType}"
+                            TextColor="Black" />
+
+                    <Label Text="Due Date" TextColor="Black" />
+                    <DatePicker Date="{Binding EndDate}" Format="MMM d, yyyy" TextColor="Black" />
+
+                    <Label Text="{Binding ErrorMessage}" TextColor="Red" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Button Grid.Column="0" Text="Cancel" Command="{Binding CancelCommand}" />
+                <Button Grid.Column="1" Text="Save" Command="{Binding SaveAssessmentCommand}" />
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

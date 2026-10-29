@@ -1,4 +1,5 @@
 using AcademicTracker.ViewModels;
+using AcademicTracker.Models;
 
 namespace AcademicTracker.Views;
 
@@ -15,5 +16,12 @@ public partial class SelectedCoursePage : ContentPage
     {
         base.OnAppearing();
         _viewModel.LoadCourseCommand.Execute(null);
+    }
+
+    private async void OnAssessmentTapped(object sender, EventArgs e)
+    {
+        if (sender is not Element { BindingContext: Assessments assessment })
+            return;
+        await _viewModel.EditAssessmentCommand.ExecuteAsync(assessment);
     }
 }

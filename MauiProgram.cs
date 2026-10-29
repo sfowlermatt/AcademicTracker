@@ -33,6 +33,8 @@ namespace AcademicTracker
             builder.Services.AddTransient<TermEditPage>();
             builder.Services.AddTransient<CourseEditViewModel>();
             builder.Services.AddTransient<CourseEditView>();
+            builder.Services.AddTransient<AssessmentEditViewModel>();
+            builder.Services.AddTransient<AssessmentEditView>();
             //builder.Services.AddTransient<AddCoursePage>();
 
             return builder.Build();

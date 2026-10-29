@@ -33,7 +33,8 @@ namespace AcademicTracker.ViewModels
         [ObservableProperty]
         private string termTitle = string.Empty;
 
-        public ObservableCollection<Assessments> Assessments { get; } = new();
+        [ObservableProperty]
+        private ObservableCollection<Assessments> assessmentCollection = new();
 
         [ObservableProperty]
         private bool isBusy;
@@ -58,11 +59,8 @@ namespace AcademicTracker.ViewModels
                 var term = await _termService.GetTermByIdAsync(course.TermId);
                 TermTitle = term?.Title ?? string.Empty;
                 var assessments = await _assessmentService.GetAssessmentsByCourseIdAsync(course.Id);
-                Assessments.Clear();
-                foreach (var assessment in assessments)
-                {
-                    Assessments.Add(assessment);
-                }
+                var loadedAssessments = await _assessmentService.GetAssessmentsByCourseIdAsync(course.Id);
+                AssessmentCollection = new ObservableCollection<Assessments>(loadedAssessments);
             }
             catch (Exception ex)
             {
@@ -73,6 +71,22 @@ namespace AcademicTracker.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        [RelayCommand]
+        private async Task AddAssessment()
+        {
+            if (SelectedCourse is null)
+                return;
+            await Shell.Current.GoToAsync($"{nameof(AssessmentEditView)}?courseId={SelectedCourse.Id}");
+        }
+
+        [RelayCommand]
+        private async Task EditAssessment(Assessments assessment)
+        {
+            if (assessment is null)
+                return;
+            await Shell.Current.GoToAsync($"{nameof(AssessmentEditView)}?assessmentId={assessment.Id}");
         }
 
         [RelayCommand]

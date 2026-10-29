@@ -71,7 +71,24 @@
                 </Border.StrokeShape>
 
                 <VerticalStackLayout Spacing="12">
-                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Assessments}" Spacing="10">
+                    <Grid ColumnDefinitions="*,Auto"
+                          ColumnSpacing="12">
+                        <Label Grid.Column="0"
+                               Text="Assessments"
+                               FontAttributes="Bold"
+                               TextColor="Black" />
+                        <Button Grid.Column="1"
+                                Text="Add"
+                                HeightRequest="34"
+                                Padding="16,0"
+                                CornerRadius="17"
+                                BackgroundColor="Transparent"
+                                TextColor="Black"
+                                BorderColor="#757575"
+                                BorderWidth="2"
+                                Command="{Binding AddAssessmentCommand}" />
+                    </Grid>
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding AssessmentCollection}" Spacing="10">
 
                         <BindableLayout.EmptyView>
                             <Label Text="No assessments yet" TextColor="Black" />
@@ -80,6 +97,9 @@
                         <BindableLayout.ItemTemplate>
                             <DataTemplate x:DataType="models:Assessments">
                                 <VerticalStackLayout Spacing="2">
+                                    <VerticalStackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnAssessmentTapped"/>
+                                    </VerticalStackLayout.GestureRecognizers>
                                     <Label Text="{Binding Type}" FontAttributes="Bold" TextColor="Black" />
                                     <Label Text="{Binding Name}" TextColor="Black" />
                                     <Label Text="{Binding DueDate, StringFormat='Due: {0:MMM d, yyyy}'}" TextColor="Black" FontSize="12" />

@@ -11,6 +11,7 @@ namespace AcademicTracker
             Routing.RegisterRoute(nameof(SelectedCoursePage), typeof(SelectedCoursePage));
             Routing.RegisterRoute(nameof(TermEditPage), typeof(TermEditPage));
             Routing.RegisterRoute(nameof(CourseEditView), typeof(CourseEditView));
+            Routing.RegisterRoute(nameof(AssessmentEditView), typeof(AssessmentEditView));
         }
     }
 }

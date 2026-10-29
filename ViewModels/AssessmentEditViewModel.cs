@@ -21,13 +21,13 @@ namespace AcademicTracker.ViewModels
             
         }
 
-        public IReadOnlyList<AssessmentType> AssessmentTypeOptions { get; } = Enum.GetValues<AssessmentType>();>
+        public IReadOnlyList<AssessmentType> AssessmentTypeOptions { get; } = Enum.GetValues<AssessmentType>();
 
         [ObservableProperty]
         private int assessmentId;
 
         [ObservableProperty]
-        private int? courseId;
+        private string? courseId;
 
         [ObservableProperty]
         private string pageTitle = "Add Assessment";
@@ -69,26 +69,41 @@ namespace AcademicTracker.ViewModels
             AssessType = assessment.Type;
             StartDate = assessment.StartDate;
             EndDate = assessment.EndDate;
-            CourseId = assessment.CourseId;
+            //CourseId = assessment.CourseId;
         }
 
         [RelayCommand]
         private async Task SaveAssessmentAsync()
         {
-            if (!int.TryParse(AssessmentId.ToString(), out int assessmentId))
-                return;
+            ErrorMessage = string.Empty;
 
-            var assessment = await _assessmentService.GetAssessmentByIdAsync(assessmentId);
-            if (assessment is null)
+            if(string.IsNullOrWhiteSpace(Name))
+            {
+                ErrorMessage = "Assessment name is required.";
                 return;
+            }
 
-            assessment.Name = Name;
+            Assessments assessment;
+                if (_existingAssessment is not null)
+            {
+                assessment = _existingAssessment;
+            }
+            else
+            {
+                if (!int.TryParse(CourseId, out var existingCourseId))
+                {
+                    ErrorMessage = "Invalid Course ID.";
+                    return;
+                }
+                assessment = new Assessments { CourseId = existingCourseId };
+            }
+                assessment.Name = Name;
             assessment.Type = AssessType;
             assessment.StartDate = StartDate;
             assessment.EndDate = EndDate;
-            assessment.CourseId = CourseId;
+            //assessment.CourseId = CourseId;
 
-            await _assessmentService.UpdateAssessmentAsync(assessment);
+            await _assessmentService.SaveAssessmentAsync(assessment);
             await Shell.Current.GoToAsync("..");
         }
 
