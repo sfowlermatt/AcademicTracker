@@ -58,14 +58,15 @@ namespace AcademicTracker.ViewModels
                 SelectedCourse = course;
                 var term = await _termService.GetTermByIdAsync(course.TermId);
                 TermTitle = term?.Title ?? string.Empty;
-                var assessments = await _assessmentService.GetAssessmentsByCourseIdAsync(course.Id);
+
                 var loadedAssessments = await _assessmentService.GetAssessmentsByCourseIdAsync(course.Id);
+                AssessmentCollection = new ObservableCollection<Assessments>();
                 AssessmentCollection = new ObservableCollection<Assessments>(loadedAssessments);
             }
             catch (Exception ex)
             {
                 // Handle exceptions (e.g., log them)
-                Console.WriteLine($"Error loading course details: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error loading course: {ex.Message}");
             }
             finally
             {

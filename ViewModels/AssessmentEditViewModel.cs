@@ -83,21 +83,27 @@ namespace AcademicTracker.ViewModels
                 return;
             }
 
-            Assessments assessment;
-                if (_existingAssessment is not null)
+            int parentCourseId;
+            if (_existingAssessment is not null)
             {
-                assessment = _existingAssessment;
+                parentCourseId = _existingAssessment.CourseId;
             }
-            else
-            {
-                if (!int.TryParse(CourseId, out var existingCourseId))
+            else if (!int.TryParse(CourseId, out parentCourseId))
                 {
                     ErrorMessage = "Invalid Course ID.";
                     return;
                 }
-                assessment = new Assessments { CourseId = existingCourseId };
-            }
-                assessment.Name = Name;
+                var siblingsAssessments = await _assessmentService.GetAssessmentsByCourseIdAsync(parentCourseId);
+                int currentId = _existingAssessment?.Id ?? 0;
+
+                if (siblingsAssessments.Any(a => a.Type == AssessType && a.Id != currentId))
+                {
+                    ErrorMessage = $"This course already has a {AssessType} assessment.";
+                    return;
+                }
+
+            var assessment = _existingAssessment ?? new Assessments { CourseId = parentCourseId };
+            assessment.Name = Name.Trim();
             assessment.Type = AssessType;
             assessment.StartDate = StartDate;
             assessment.EndDate = EndDate;
