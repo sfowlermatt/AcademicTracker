@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SQLite;
 
 namespace AcademicTracker.Models
 {
@@ -13,6 +14,7 @@ namespace AcademicTracker.Models
 
     public class Assessments
     {
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public int CourseId { get; set; }
         public string Name { get; set; } = string.Empty;

@@ -37,6 +37,14 @@
                 <Button Grid.Column="1" Text="Save" Command="{Binding SaveAssessmentCommand}" />
             </Grid>
 
+            <Button Text="Delete"
+                    BackgroundColor="Red"
+                    TextColor="white"
+                    BorderColor="Red"
+                    BorderWidth="2"
+                    IsVisible="{Binding IsEditing}"
+                    Command="{Binding DeleteAssessmentCommand}" />
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

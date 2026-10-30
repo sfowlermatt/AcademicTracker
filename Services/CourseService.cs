@@ -71,5 +71,12 @@ namespace AcademicTracker.Services
             }
             return Task.CompletedTask;
         }
+
+        public Task DeleteCourseAsync(int id)
+        {
+            _courses.RemoveAll(course => course.Id == id);
+            
+            return Task.CompletedTask;
+        }
     }
 }

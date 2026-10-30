@@ -39,6 +39,12 @@ namespace AcademicTracker.Services
             return Task.CompletedTask;
         }
 
+        public Task DeleteAssessmentAsync(int assessmentId)
+        {
+            _assessments.RemoveAll(a => a.Id == assessmentId);
+            return Task.CompletedTask;
+        }
+
         public Task SaveAssessmentAsync(Assessments assessment)
         {
             if (assessment.Id == 0)

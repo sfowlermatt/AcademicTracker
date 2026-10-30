@@ -47,6 +47,9 @@ namespace AcademicTracker.ViewModels
         [ObservableProperty]
         private string errorMessage = string.Empty;
 
+        [ObservableProperty]
+        private bool isEditing;
+
         partial void OnAssessmentIdChanged(int value)
         {
             LoadAssessmentCommand.Execute(null);
@@ -63,6 +66,7 @@ namespace AcademicTracker.ViewModels
                 return;
 
             _existingAssessment = assessment;
+            IsEditing = true;
             PageTitle = "Edit Assessment";
 
             Name = assessment.Name;
@@ -110,6 +114,15 @@ namespace AcademicTracker.ViewModels
             //assessment.CourseId = CourseId;
 
             await _assessmentService.SaveAssessmentAsync(assessment);
+            await Shell.Current.GoToAsync("..");
+        }
+
+        [RelayCommand]
+        private async Task DeleteAssessmentAsync()
+        {
+            if (_existingAssessment is null)
+                return;
+            await _assessmentService.DeleteAssessmentAsync(_existingAssessment.Id);
             await Shell.Current.GoToAsync("..");
         }
 

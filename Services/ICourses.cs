@@ -11,6 +11,7 @@ namespace AcademicTracker.Services
         Task<List<Course>> GetCoursesByTermIdAsync(int termId);
         Task<Course?> GetCourseByIdAsync(int id);
         Task DeleteCoursesByTermIdAsync(int termId);
+        Task DeleteCourseAsync(int id);
         Task SaveCourseAsync(Course course);
     }
 }

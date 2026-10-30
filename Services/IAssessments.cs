@@ -13,6 +13,8 @@ namespace AcademicTracker.Services
 
         Task DeleteAssessmentByCourseIdAsync(int courseId);
 
+        Task DeleteAssessmentAsync(int assessmentId);
+
         Task SaveAssessmentAsync(Assessments assessment);
     }
 }

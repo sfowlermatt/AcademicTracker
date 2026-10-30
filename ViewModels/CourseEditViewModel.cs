@@ -14,10 +14,12 @@ namespace AcademicTracker.ViewModels
     public partial class CourseEditViewModel : ObservableObject
     {
         private readonly ICourses _courseService;
+        private readonly IAssessments _assessmentService;
         private Course? _existingCourse;
-        public CourseEditViewModel(ICourses courseService)
+        public CourseEditViewModel(ICourses courseService, IAssessments assessmentService)
         {
             _courseService = courseService;
+            _assessmentService = assessmentService;
         }
         public IReadOnlyList<Status> StatusOptions { get; } = Enum.GetValues<Status>();
 
@@ -45,6 +47,8 @@ namespace AcademicTracker.ViewModels
         private string instructorEmail = string.Empty;
         [ObservableProperty]
         private string errorMessage = string.Empty;
+        [ObservableProperty]
+        private bool isEditing;
        
         partial void OnCourseIdChanged(string? value)
         {
@@ -61,17 +65,17 @@ namespace AcademicTracker.ViewModels
             if (course is null)
                 return;
             
-                _existingCourse = course;
-                PageTitle = "Edit Course";
-                Name = course.Name;
-                StartDate = course.StartDate;
-                EndDate = course.EndDate;
-                Status = course.Status;
-                Notes = course.Notes;
-                InstructorName = course.InstructorName;
-                InstructorPhone = course.InstructorPhone;
-                InstructorEmail = course.InstructorEmail;
-            
+            _existingCourse = course;
+            IsEditing = true;
+            PageTitle = "Edit Course";
+            Name = course.Name;
+            StartDate = course.StartDate;
+            EndDate = course.EndDate;
+            Status = course.Status;
+            Notes = course.Notes;
+            InstructorName = course.InstructorName;
+            InstructorPhone = course.InstructorPhone;
+            InstructorEmail = course.InstructorEmail;
         }
 
         [RelayCommand]
@@ -129,6 +133,18 @@ namespace AcademicTracker.ViewModels
         private async Task Cancel()
         {
             await Shell.Current.GoToAsync("..");
+        }
+
+        [RelayCommand]
+        private async Task DeleteCourseAsync()
+        {
+            if (_existingCourse is null)
+                return;
+            // Delete all assessments associated with this course
+            await _assessmentService.DeleteAssessmentByCourseIdAsync(_existingCourse.Id);
+            // Delete the course itself
+            await _courseService.DeleteCourseAsync(_existingCourse.Id);
+            await Shell.Current.GoToAsync("../..");
         }
     }
 }

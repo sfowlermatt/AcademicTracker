@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SQLite;
 
 namespace AcademicTracker.Models
 {
@@ -16,7 +17,10 @@ namespace AcademicTracker.Models
     public class Course
     {
         public int TermId { get; set; }
+
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
