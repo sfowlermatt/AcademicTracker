@@ -21,6 +21,7 @@ namespace AcademicTracker
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+            builder.Services.AddSingleton<DatabaseService>();
             builder.Services.AddSingleton<ITerms, TermService>();
             builder.Services.AddTransient<HomeViewModel>();
             builder.Services.AddTransient<HomePage>();
