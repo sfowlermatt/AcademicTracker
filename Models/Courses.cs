@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using SQLite;
 
@@ -8,10 +9,14 @@ namespace AcademicTracker.Models
 
     public enum Status
     {
-        Active,
+        [Description("In Progress")]
         InProgress,
+        [Description("Completed")]
         Completed,
+        [Description("Dropped")]
         Dropped,
+        [Description("Plan to Take")]
+        PlanToTake
 
     }
     public class Course
@@ -24,7 +29,7 @@ namespace AcademicTracker.Models
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public Status Status { get; set; } = Status.Active;
+        public Status Status { get; set; } = Status.InProgress;
         public string Notes { get; set; }
         public string InstructorName { get; set; } = string.Empty;
         public string InstructorPhone { get; set; } = string.Empty;

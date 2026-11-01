@@ -16,8 +16,7 @@ namespace AcademicTracker.Services
             if (_database is not null)
                 return _database;
             await _locked.WaitAsync();
-            
-            try
+  
             {
                 if (_database is not null)
                     return _database;

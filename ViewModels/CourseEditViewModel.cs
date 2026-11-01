@@ -95,10 +95,16 @@ namespace AcademicTracker.ViewModels
                 return;
             }
 
-            if (!string.IsNullOrWhiteSpace(InstructorEmail) && (!InstructorEmail.Contains("@") || !InstructorEmail.Contains(".edu")))
+            if (string.IsNullOrWhiteSpace(InstructorPhone) || !System.Text.RegularExpressions.Regex.IsMatch(InstructorPhone, @"^\d{3}-\d{3}-\d{4}$"))
+            {
+                ErrorMessage = "Instructor phone number must be in the format XXX-XXX-XXXX.";
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(InstructorEmail) && (!InstructorEmail.Contains("@") || !InstructorEmail.Contains(".edu")))
 
             {
-                ErrorMessage = "Instructor email is not valid.";
+                ErrorMessage = "Instructor email is not valid. Must contain @ and .edu";
                 return;
             }
 
@@ -107,6 +113,7 @@ namespace AcademicTracker.ViewModels
             {
                 course = _existingCourse;
             }
+
             else
             {
                 if(!int.TryParse(termId, out var parentTermId))
@@ -114,6 +121,13 @@ namespace AcademicTracker.ViewModels
                     ErrorMessage = "This course isn't linked to a term";
                 }
                 course = new Course { TermId = parentTermId };
+
+                var termCourses = await _courseService.GetCoursesByTermIdAsync(parentTermId);
+                if(termCourses.Count >= 6)
+                {
+                    ErrorMessage = "This term already has the maximum number of courses (6).";
+                    return;
+                }
             }
 
             course.Name = Name.Trim();
