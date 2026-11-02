@@ -52,7 +52,9 @@ namespace AcademicTracker.ViewModels
         private string errorMessage = string.Empty;
         [ObservableProperty]
         private bool isEditing;
-       
+        [ObservableProperty]
+        private bool notificationsEnabled;
+
         partial void OnCourseIdChanged(string? value)
         {
             LoadCourseCommand.Execute(null);
@@ -70,6 +72,7 @@ namespace AcademicTracker.ViewModels
             
             _existingCourse = course;
             IsEditing = true;
+            NotificationsEnabled = course.NotificationsEnabled;
             PageTitle = "Edit Course";
             Name = course.Name;
             StartDate = course.StartDate;
@@ -141,6 +144,7 @@ namespace AcademicTracker.ViewModels
             course.InstructorName = InstructorName.Trim();
             course.InstructorPhone = InstructorPhone.Trim();
             course.InstructorEmail = InstructorEmail.Trim();
+            course.NotificationsEnabled = NotificationsEnabled;
 
             await _courseService.SaveCourseAsync(course);
             await _notificationService.CourseStartNotification(course);
@@ -159,6 +163,7 @@ namespace AcademicTracker.ViewModels
         {
             if (_existingCourse is null)
                 return;
+            //await _notificationService.CancelAssessmentNotifications(assessment.Id);
             await _notificationService.CancelCourseNotifications(_existingCourse.Id);
             // Delete all assessments associated with this course
             await _assessmentService.DeleteAssessmentByCourseIdAsync(_existingCourse.Id);

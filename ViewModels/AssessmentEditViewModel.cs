@@ -13,11 +13,13 @@ namespace AcademicTracker.ViewModels
     public partial class AssessmentEditViewModel : ObservableObject
     {
         private readonly IAssessments _assessmentService;
+        private readonly INotifications _notificationService;
         private Assessments? _existingAssessment;
 
-        public AssessmentEditViewModel(IAssessments assessmentService)
+        public AssessmentEditViewModel(IAssessments assessmentService, INotifications notificationService)
         {
             _assessmentService = assessmentService;
+            _notificationService = notificationService;
             
         }
 
@@ -50,6 +52,9 @@ namespace AcademicTracker.ViewModels
         [ObservableProperty]
         private bool isEditing;
 
+        [ObservableProperty]
+        private bool notificationsEnabled;
+
         partial void OnAssessmentIdChanged(int value)
         {
             LoadAssessmentCommand.Execute(null);
@@ -67,6 +72,7 @@ namespace AcademicTracker.ViewModels
 
             _existingAssessment = assessment;
             IsEditing = true;
+            NotificationsEnabled = assessment.NotificationsEnabled;
             PageTitle = "Edit Assessment";
 
             Name = assessment.Name;
@@ -111,9 +117,12 @@ namespace AcademicTracker.ViewModels
             assessment.Type = AssessType;
             assessment.StartDate = StartDate;
             assessment.EndDate = EndDate;
+            assessment.NotificationsEnabled = NotificationsEnabled;
             //assessment.CourseId = CourseId;
 
             await _assessmentService.SaveAssessmentAsync(assessment);
+            await _notificationService.AssessmentStartNotification(assessment);
+            await _notificationService.AssessmentEndNotification(assessment);
             await Shell.Current.GoToAsync("..");
         }
 
@@ -122,6 +131,7 @@ namespace AcademicTracker.ViewModels
         {
             if (_existingAssessment is null)
                 return;
+            await _notificationService.CancelAssessmentNotifications(_existingAssessment.Id);
             await _assessmentService.DeleteAssessmentAsync(_existingAssessment.Id);
             await Shell.Current.GoToAsync("..");
         }

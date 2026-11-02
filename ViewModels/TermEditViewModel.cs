@@ -14,14 +14,16 @@ namespace AcademicTracker.ViewModels
         private readonly ITerms _termService;
         private readonly ICourses _courseService;
         private readonly IAssessments _assessmentService;
+        private readonly INotifications _notificationService;
 
         private Term? _existingTerm;
 
-        public TermEditViewModel(ITerms termService, ICourses courseService, IAssessments assessmentService)
+        public TermEditViewModel(ITerms termService, ICourses courseService, IAssessments assessmentService, INotifications notificationService)
         {
             _termService = termService;
             _courseService = courseService;
             _assessmentService = assessmentService;
+            _notificationService = notificationService;
         }
 
         [ObservableProperty]
@@ -103,8 +105,10 @@ namespace AcademicTracker.ViewModels
             var courses = await _courseService.GetCoursesByTermIdAsync(_existingTerm.Id);
             foreach (var course in courses)
             {
+                await _notificationService.CancelAssessmentNotifications(course.Id);
                 await _assessmentService.DeleteAssessmentByCourseIdAsync(course.Id);
             }
+            await _notificationService.CancelCourseNotifications(_existingTerm.Id);
             await _courseService.DeleteCoursesByTermIdAsync(_existingTerm.Id);
             await _termService.DeleteTermAsync(_existingTerm.Id);
             await Shell.Current.GoToAsync("//HomePage");

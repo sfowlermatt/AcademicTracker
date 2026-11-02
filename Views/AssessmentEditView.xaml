@@ -27,8 +27,11 @@
 
                     <Label Text="Due Date" TextColor="Black" />
                     <DatePicker Date="{Binding EndDate}" Format="MMM d, yyyy" TextColor="Black" />
+                    <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+                        <Label Text="Enable Notifications" TextColor="Black" VerticalOptions="Center" />
+                        <Switch IsToggled="{Binding NotificationsEnabled}" />
 
-                    <Label Text="{Binding ErrorMessage}" TextColor="Red" />
+                        <Label Text="{Binding ErrorMessage}" TextColor="Red" />
                 </VerticalStackLayout>
             </Border>
 
