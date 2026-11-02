@@ -71,7 +71,7 @@ namespace AcademicTracker.Services
             await LocalNotificationCenter.Current.Show(notification);
         }
 
-        public async Task AssessementStartNotification(Assessments assessment)
+        public async Task AssessmentStartNotification(Assessments assessment)
         {
             if (assessment.StartDate < DateTime.Now)
             {

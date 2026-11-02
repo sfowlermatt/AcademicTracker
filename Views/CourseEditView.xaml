@@ -25,12 +25,13 @@
 
                     <Label Text="End Date" TextColor="Black" />
                     <DatePicker Date="{Binding EndDate}" Format="MMM d, yyyy" TextColor="Black" />
-                    
+
                     <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
                         <Label Text="Enable Notifications" TextColor="Black" VerticalOptions="Center" />
                         <Switch IsToggled="{Binding NotificationsEnabled}" />
+                    </HorizontalStackLayout>
 
-                        <Label Text="Status" TextColor="Black" />
+                    <Label Text="Status" TextColor="Black" />
                     <Picker ItemsSource="{Binding StatusOptions}"
                             SelectedItem="{Binding Status}"
                             TextColor="Black" />
