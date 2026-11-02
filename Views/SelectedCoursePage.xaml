@@ -61,6 +61,15 @@
                     <Label Text="{Binding SelectedCourse.Notes}"
                            TextColor="Black"
                            MinimumHeightRequest="120" />
+                    <Button Text="Share Notes"
+                            HeightRequest="34"
+                            Padding="16,0"
+                            CornerRadius="17"
+                            BackgroundColor="Transparent"
+                            TextColor="Black"
+                            BorderColor="#757575"
+                            BorderWidth="2"
+                            Command="{Binding ShareNotesCommand}" />
                 </VerticalStackLayout>
             </Border>
 

@@ -103,5 +103,23 @@ namespace AcademicTracker.ViewModels
                 return;
             await Shell.Current.GoToAsync($"{nameof(CourseEditView)}?courseId={SelectedCourse.Id}");
         }
+
+        [RelayCommand]
+        private async Task ShareNotes()
+        {
+            if (SelectedCourse is null)
+                return;
+            var notes = SelectedCourse.Notes;
+            if (string.IsNullOrWhiteSpace(notes))
+            {
+                await Shell.Current.DisplayAlert("No Notes", "There are no notes to share for this course.", "OK");
+                return;
+            }
+            await Share.RequestAsync(new ShareTextRequest
+            {
+                Text = notes,
+                Title = $"Notes for {SelectedCourse.Name}"
+            });
+        }
     }
 }
