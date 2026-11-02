@@ -15,12 +15,15 @@ namespace AcademicTracker.ViewModels
     {
         private readonly ICourses _courseService;
         private readonly IAssessments _assessmentService;
+        private readonly INotifications _notificationService;
         private Course? _existingCourse;
-        public CourseEditViewModel(ICourses courseService, IAssessments assessmentService)
+        public CourseEditViewModel(ICourses courseService, IAssessments assessmentService, INotifications notificationService)
         {
             _courseService = courseService;
             _assessmentService = assessmentService;
+            _notificationService = notificationService;
         }
+
         public IReadOnlyList<Status> StatusOptions { get; } = Enum.GetValues<Status>();
 
         [ObservableProperty]
@@ -36,7 +39,7 @@ namespace AcademicTracker.ViewModels
         [ObservableProperty]
         private DateTime endDate = DateTime.Today.AddMonths(3);
         [ObservableProperty]
-        private Status status = Status.Active;
+        private Status status = Status.InProgress;
         [ObservableProperty]
         private string notes = string.Empty;
         [ObservableProperty]
@@ -140,6 +143,8 @@ namespace AcademicTracker.ViewModels
             course.InstructorEmail = InstructorEmail.Trim();
 
             await _courseService.SaveCourseAsync(course);
+            await _notificationService.CourseStartNotification(course);
+            await _notificationService.CourseEndNotification(course);
             await Shell.Current.GoToAsync("..");
         }
 
@@ -154,6 +159,7 @@ namespace AcademicTracker.ViewModels
         {
             if (_existingCourse is null)
                 return;
+            await _notificationService.CancelCourseNotifications(_existingCourse.Id);
             // Delete all assessments associated with this course
             await _assessmentService.DeleteAssessmentByCourseIdAsync(_existingCourse.Id);
             // Delete the course itself

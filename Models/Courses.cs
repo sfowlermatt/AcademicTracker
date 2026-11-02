@@ -35,6 +35,8 @@ namespace AcademicTracker.Models
         public string InstructorPhone { get; set; } = string.Empty;
         public string InstructorEmail { get; set; } = string.Empty;
 
+        public bool NotificationsEnabled { get; set; }
+
 
         //public Courses(string name, DateTime startDate, DateTime endDate, string status, string notes)
         //{

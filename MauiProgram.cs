@@ -2,6 +2,7 @@
 using AcademicTracker.Services;
 using AcademicTracker.Views;
 using AcademicTracker.ViewModels;
+using Plugin.LocalNotification;
 
 namespace AcademicTracker
 {
@@ -12,6 +13,7 @@ namespace AcademicTracker
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseLocalNotification()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -22,6 +24,7 @@ namespace AcademicTracker
     		builder.Logging.AddDebug();
 #endif
             builder.Services.AddSingleton<DatabaseService>();
+            builder.Services.AddSingleton<INotifications, NotificationService>();
             builder.Services.AddSingleton<ITerms, TermService>();
             builder.Services.AddTransient<HomeViewModel>();
             builder.Services.AddTransient<HomePage>();
