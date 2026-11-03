@@ -44,7 +44,7 @@ namespace AcademicTracker.ViewModels
         private DateTime startDate = DateTime.Today;
 
         [ObservableProperty]
-        private DateTime endDate = DateTime.Today.AddMonths(3);
+        private DateTime endDate = DateTime.Today.AddMonths(1);
 
         [ObservableProperty]
         private string errorMessage = string.Empty;

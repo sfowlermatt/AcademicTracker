@@ -2,53 +2,59 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:AcademicTracker.ViewModels"
+             xmlns:controls="clr-namespace:AcademicTracker.Controls"
              x:Class="AcademicTracker.Views.TermEditPage"
              x:DataType="vm:TermEditViewModel"
              Shell.NavBarIsVisible="False">
+    <Grid RowDefinitions="Auto,*">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20,10" Spacing="16">
+        <controls:AppHeader Grid.Row="0"/>
+        <Grid Grid.Row="1" RowDefinitions="*,Auto" Padding="20,10" RowSpacing="12">
+            <ScrollView>
+                <VerticalStackLayout Padding="20,10" Spacing="16">
 
-            <Label Text="{Binding PageTitle}" FontSize="24" />
+                    <Label Text="{Binding PageTitle}" FontSize="24" />
 
-            <Border BackgroundColor="#EAEAEA" Stroke="#757575" StrokeThickness="2" Padding="20,16">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="12" />
-                </Border.StrokeShape>
+                    <Border BackgroundColor="#EAEAEA" Stroke="#757575" StrokeThickness="2" Padding="20,16">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
 
-                <VerticalStackLayout Spacing="12">
-                    <Label Text="Term Title" TextColor="Black" />
-                    <Entry Text="{Binding Title}"
+                        <VerticalStackLayout Spacing="12">
+                            <Label Text="Term Title" TextColor="Black" />
+                            <Entry Text="{Binding Title}"
                            Placeholder="e.g. Fall 2026"
                            TextColor="Black" />
 
-                    <Label Text="Start Date" TextColor="Black" />
-                    <DatePicker Date="{Binding startDate}"
+                            <Label Text="Start Date" TextColor="Black" />
+                            <DatePicker Date="{Binding StartDate}"
                                 Format="MMM d, yyyy"
                                 TextColor="Black" />
 
-                    <Label Text="End Date" TextColor="Black" />
-                    <DatePicker Date="{Binding endDate}"
+                            <Label Text="End Date" TextColor="Black" />
+                            <DatePicker Date="{Binding EndDate}"
                                 Format="MMM d, yyyy"
                                 TextColor="Black" />
 
-                    <Label Text="{Binding ErrorMessage}" TextColor="Red" />
-                </VerticalStackLayout>
-            </Border>
+                            <Label Text="{Binding ErrorMessage}" TextColor="Red" />
+                        </VerticalStackLayout>
+                    </Border>
 
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
-                <Button Grid.Column="0" Text="Cancel" Command="{Binding CancelCommand}" />
-                <Button Grid.Column="1" Text="Save" Command="{Binding SaveTermCommand}" />
-            </Grid>
-            
-            <Button Text="Delete Term"
-                    BackgroundColor="Transparent"
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                        <Button Grid.Column="0" Text="Cancel" Command="{Binding CancelCommand}" />
+                        <Button Grid.Column="1" Text="Save" Command="{Binding SaveTermCommand}" />
+                    </Grid>
+
+                    <Button Text="Delete Term"
+                    BackgroundColor="Red"
                     BorderColor="Red"
                     BorderWidth="2"
-                    TextColor="Red"
+                    TextColor="{StaticResource WguLightGrey}"
                     IsVisible="{Binding IsEditing}"
                     Command="{Binding DeleteTermCommand}" />
 
-        </VerticalStackLayout>
-    </ScrollView>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+    </Grid>
 </ContentPage>

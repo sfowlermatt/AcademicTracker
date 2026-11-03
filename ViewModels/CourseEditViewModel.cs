@@ -37,7 +37,7 @@ namespace AcademicTracker.ViewModels
         [ObservableProperty]
         private DateTime startDate = DateTime.Today;
         [ObservableProperty]
-        private DateTime endDate = DateTime.Today.AddMonths(3);
+        private DateTime endDate = DateTime.Today.AddMonths(1);
         [ObservableProperty]
         private Status status = Status.InProgress;
         [ObservableProperty]
@@ -101,16 +101,22 @@ namespace AcademicTracker.ViewModels
                 return;
             }
 
+            if(string.IsNullOrWhiteSpace(InstructorName))
+            {
+                ErrorMessage = "Instructor name is required.";
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(InstructorPhone) || !System.Text.RegularExpressions.Regex.IsMatch(InstructorPhone, @"^\d{3}-\d{3}-\d{4}$"))
             {
                 ErrorMessage = "Instructor phone number must be in the format XXX-XXX-XXXX.";
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(InstructorEmail) && (!InstructorEmail.Contains("@") || !InstructorEmail.Contains(".edu")))
+            if (string.IsNullOrWhiteSpace(InstructorEmail) && (!InstructorEmail.Contains("@") && !InstructorEmail.Contains(".edu")))
 
             {
-                ErrorMessage = "Instructor email is not valid. Must contain @ and .edu";
+                ErrorMessage = "Instructor email cannot be blank and must contain @ and .edu";
                 return;
             }
 

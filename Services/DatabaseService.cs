@@ -22,6 +22,13 @@ namespace AcademicTracker.Services
                     return _database;
 
                 var path = Path.Combine(FileSystem.AppDataDirectory, "academictracker.db3");
+
+                //Remove this code before sending in for evaluation
+#if DEBUG
+                if (File.Exists(path))
+                    File.Delete(path);
+#endif
+                //
                 var db = new SQLiteAsyncConnection(path);
 
                 await db.CreateTableAsync<Term>();

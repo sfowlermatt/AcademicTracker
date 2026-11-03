@@ -2,11 +2,17 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:AcademicTracker.ViewModels"
+             xmlns:controls="clr-namespace:AcademicTracker.Controls"
              x:Class="AcademicTracker.Views.AssessmentEditView"
              x:DataType="vm:AssessmentEditViewModel"
              Shell.NavBarIsVisible="False">
 
-    <ScrollView>
+    <Grid RowDefinitions="Auto,*">
+
+        <controls:AppHeader Grid.Row="0"/>
+
+        <Grid Grid.Row="1" RowDefinitions="Auto,Auto,*" Padding="20,10" RowSpacing="12">
+            <ScrollView>
         <VerticalStackLayout Padding="20,10" Spacing="16">
 
             <Label Text="{Binding PageTitle}" FontSize="24" />
@@ -24,7 +30,10 @@
                     <Picker ItemsSource="{Binding AssessmentTypeOptions}"
                             SelectedItem="{Binding AssessType}"
                             TextColor="Black" />
-
+                    
+                    
+                    <Label Text="Start Date" TextColor="Black" />
+                    <DatePicker Date="{Binding StartDate}" Format="MMM d, yyyy" TextColor="Black" />
                     <Label Text="Due Date" TextColor="Black" />
                     <DatePicker Date="{Binding EndDate}" Format="MMM d, yyyy" TextColor="Black" />
 
@@ -54,4 +63,6 @@
 
         </VerticalStackLayout>
     </ScrollView>
+        </Grid>
+    </Grid>
 </ContentPage>

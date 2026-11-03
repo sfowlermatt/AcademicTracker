@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AcademicTracker.Models;
 using Plugin.LocalNotification;
 using Plugin.LocalNotification.Core.Models;
-using AcademicTracker.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
+//using static Android.Graphics.ImageDecoder;
 
 namespace AcademicTracker.Services
 {
@@ -46,6 +47,11 @@ namespace AcademicTracker.Services
         public async Task CourseEndNotification(Course course)
         {
             if (course.EndDate < DateTime.Now)
+            {
+                return;
+            }
+            //Adding in this check because timer was throwing an error when the end date was more than 50 days after the start date.
+            if (course.EndDate > course.StartDate.AddDays(49))
             {
                 return;
             }
@@ -102,6 +108,11 @@ namespace AcademicTracker.Services
         public async Task AssessmentEndNotification(Assessments assessment)
         {
             if (assessment.EndDate < DateTime.Now)
+            {
+                return;
+            }
+            //Adding in this check because timer was throwing an error when the end date was more than 50 days after the start date.
+            if (assessment.EndDate > assessment.StartDate.AddDays(49))
             {
                 return;
             }
