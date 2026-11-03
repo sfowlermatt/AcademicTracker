@@ -69,8 +69,8 @@ namespace AcademicTracker.Services
             
             await db.InsertAsync(math);
 
-            await db.InsertAsync(new Assessments { CourseId = math.Id, Name = "Math 101 Objective Exam", Type = AssessmentType.Objective, StartDate = new DateTime(2026, 11, 20) });
-            await db.InsertAsync(new Assessments { CourseId = math.Id, Name = "Math 101 Performance Project", Type = AssessmentType.Performance, StartDate = new DateTime(2023, 12, 10) });
+            await db.InsertAsync(new Assessments { CourseId = math.Id, Name = "Math 101 Objective Exam", Type = AssessmentType.Objective, StartDate = new DateTime(2026, 09, 01), EndDate = new DateTime(2026, 12, 01) });
+            await db.InsertAsync(new Assessments { CourseId = math.Id, Name = "Math 101 Performance Project", Type = AssessmentType.Performance, StartDate = new DateTime(2026, 09, 01), EndDate = new DateTime(2026, 12, 01) });
 
         
 

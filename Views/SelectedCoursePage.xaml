@@ -111,14 +111,21 @@
 
                                 <BindableLayout.ItemTemplate>
                                     <DataTemplate x:DataType="models:Assessments">
-                                        <VerticalStackLayout Spacing="2">
-                                            <VerticalStackLayout.GestureRecognizers>
-                                                <TapGestureRecognizer Tapped="OnAssessmentTapped"/>
-                                            </VerticalStackLayout.GestureRecognizers>
-                                            <Label Text="{Binding Type}" FontAttributes="Bold" TextColor="Black" />
-                                            <Label Text="{Binding Name}" TextColor="Black" />
-                                            <Label Text="{Binding DueDate, StringFormat='Due: {0:MMM d, yyyy}'}" TextColor="Black" FontSize="12" />
-                                        </VerticalStackLayout>
+                                        <Border BackgroundColor="{StaticResource WguLightBlue}"
+                                            Stroke="#757575"
+                                            StrokeThickness="2"
+                                            Padding="12">
+                                            
+                                            <VerticalStackLayout Spacing="2" >
+                                                <VerticalStackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="OnAssessmentTapped"/>
+                                                </VerticalStackLayout.GestureRecognizers>
+                                                <Label Text="{Binding Type}" FontAttributes="Bold" TextColor="Black" />
+                                                <Label Text="{Binding Name}" TextColor="Black" />
+                                                <Label Text="{Binding StartDate, StringFormat='Start: {0:MMM d, yyyy}'}" TextColor="Black" FontSize="12" />
+                                                <Label Text="{Binding EndDate, StringFormat='Due: {0:MMM d, yyyy}'}" TextColor="Black" FontSize="12" />
+                                            </VerticalStackLayout>
+                                        </Border>
                                     </DataTemplate>
                                 </BindableLayout.ItemTemplate>
 
