@@ -1,0 +1,29 @@
+e86f414 Updating the seeded data for assessments so that end date is shown properly.
+900a284 Updating the notification properties to not have notifications past certain dates since timer errors out past 49 days.
+b938297 Add the share notes method on the course select page Add the button into the xaml on the selected course view.
+6cbc25b Updated the seed data in the data service . Small name correction in Notificaiton Service. Updated the xaml code to include ending blocks that were causing an error.
+ab86159 Added a button to the Course Edit View that allow users to toggle notifications. Added the notifications to the AssessmentViewModel Added button to the AssessmentXAML. Updated Term to cancel notifications on term delete.
+335d1fb Created the INotifications interface. Created the Notification Service. Built out the course and assessment notifications. Added the builder to the mauiProgram.cs. Adding the methods to CourseViewModel so notifications are created on course save.
+d22ae57 Updated Database service to have the desired seed information.
+9838098 Set up the SQLite database and seeded the application with test data.
+e3e6a35 Finished delete functionality on assessments and courses. created DB class in order to start work on SQL db.
+18b594e Limiting assessments to two, one per each type.
+8abe7bb Add/Edit Assessment functionality
+f4a485f Continuing to add the edit and add assessment functions.
+4e36f5a Editng and adding functionality have been added and finalized.
+16aa068 Added delete functionality to the term, course, and assessment flow. Added the xaml so the button would show up when editing.
+723e972 Adding the delete functionality to the terms services. Connecting to courses and assessments so that they are deleted as well and not orphaned.
+fc318e5 Fixing edit button functionality so that forms load with correct term info
+f0ddd3d Added the edit/add functionality on Terms. Updated various pages to correct functionality
+aba8f8f Finish touch up on assessment data loading.
+4364368 Add the CourseSevice , CourseViewModel, and CoursePage
+3e76e40 Applied update to termselected page to display the correct courses.
+d54ed00 Updated the term page. Added course services and viewmodels to display courses in the selected term view page
+d0616e1 Updates to the homepage to correct the issue of terms not routing properly when selected
+7de56ab Final updates to the home screen and term pages. Changing appshell so that it points to homepage. Deleting the mainpage that was generated with the application upon creation.
+e9ac22d Updating more home page views and creating the selected team view page to test funtionality
+fde53f6 Creating Home page view and view model
+b56caca Updating classes and working on the home screen . Adding interfaces, and services
+e4035cb Creating classes for terms, courses, and assessments
+36fa1f5 Add project files.
+fbf410f Add .gitattributes and .gitignore.

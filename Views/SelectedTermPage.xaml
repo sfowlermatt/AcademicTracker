@@ -15,8 +15,8 @@
         <Grid Grid.Row="1" RowDefinitions="Auto,Auto,*" Padding="20,10" RowSpacing="12">
 
             <HorizontalStackLayout Grid.Row="0" Spacing="12">
-                <Button Text="Edit" Command="{Binding EditTermCommand}" />
-                <Button Text="+ Add Course" Command="{Binding AddCourseCommand}" />
+                <Button Text="Edit Term" HorizontalOptions="End" Command="{Binding EditTermCommand}" />
+                <Button Text="Add Course" HorizontalOptions="Start" Command="{Binding AddCourseCommand}" />
             </HorizontalStackLayout>
 
 <!--The Back button is currently not displaying properly, Think about if we even want this fixed.-->
